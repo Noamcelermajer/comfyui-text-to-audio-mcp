@@ -1,0 +1,104 @@
+{
+  "_about": "Every model file Sound Forge can use, where it goes, and how big it is. `default: true` files are installed by `forge.py setup`; the rest are optional upgrades (`forge.py setup --all` or `forge.py models --install NAME`). Sizes are download sizes.",
+  "files": {
+    "stable_audio_3_small_sfx.safetensors": {
+      "folder": "checkpoints", "size_gb": 2.27, "default": true,
+      "url": "https://huggingface.co/Comfy-Org/stable-audio-3/resolve/main/checkpoints/stable_audio_3_small_sfx.safetensors",
+      "role": "sound effects and ambience (433M parameters, 44.1 kHz stereo, up to 120 s)",
+      "license": "Stability AI Community License: free for individuals and organisations under $1M annual revenue (register for commercial use); you own the outputs",
+      "profiles": ["sfx", "ambience"]
+    },
+    "stable_audio_3_small_music.safetensors": {
+      "folder": "checkpoints", "size_gb": 2.27, "default": true,
+      "url": "https://huggingface.co/Comfy-Org/stable-audio-3/resolve/main/checkpoints/stable_audio_3_small_music.safetensors",
+      "role": "short music cues: stingers and UI jingles (433M parameters)",
+      "license": "Stability AI Community License (see above)",
+      "profiles": ["stinger"]
+    },
+    "stable_audio_3_medium.safetensors": {
+      "folder": "checkpoints", "size_gb": 9.22, "default": false, "min_tier": 8,
+      "url": "https://huggingface.co/Comfy-Org/stable-audio-3/resolve/main/checkpoints/stable_audio_3_medium.safetensors",
+      "role": "the `max` preset of sfx, ambience and stinger: 1.4B parameters, music and effects, up to 380 s; Stability reports about 6.5 GB peak VRAM",
+      "license": "Stability AI Community License (see above)",
+      "profiles": ["sfx:max", "ambience:max", "stinger:max"]
+    },
+    "t5gemma_b_b_ul2.safetensors": {
+      "folder": "text_encoders", "size_gb": 1.19, "default": true,
+      "url": "https://huggingface.co/Comfy-Org/stable-audio-3/resolve/main/text_encoders/t5gemma_b_b_ul2.safetensors",
+      "role": "text encoder for every Stable Audio 3 model",
+      "license": "Gemma terms of use (text encoder only)",
+      "profiles": ["sfx", "ambience", "stinger"]
+    },
+    "acestep_v1.5_turbo.safetensors": {
+      "folder": "diffusion_models", "size_gb": 4.79, "default": true,
+      "url": "https://huggingface.co/Comfy-Org/ace_step_1.5_ComfyUI_files/resolve/main/split_files/diffusion_models/acestep_v1.5_turbo.safetensors",
+      "role": "music: ACE-Step 1.5 turbo (2B, 8 steps)",
+      "license": "MIT; the model card states generated music may be used commercially",
+      "profiles": ["music_loop", "music_track"]
+    },
+    "qwen_0.6b_ace15.safetensors": {
+      "folder": "text_encoders", "size_gb": 1.19, "default": true,
+      "url": "https://huggingface.co/Comfy-Org/ace_step_1.5_ComfyUI_files/resolve/main/split_files/text_encoders/qwen_0.6b_ace15.safetensors",
+      "role": "ACE-Step 1.5 text encoder", "license": "MIT (ACE-Step 1.5)", "profiles": ["music_loop", "music_track"]
+    },
+    "qwen_1.7b_ace15.safetensors": {
+      "folder": "text_encoders", "size_gb": 3.71, "default": true,
+      "url": "https://huggingface.co/Comfy-Org/ace_step_1.5_ComfyUI_files/resolve/main/split_files/text_encoders/qwen_1.7b_ace15.safetensors",
+      "role": "ACE-Step 1.5 structure planner (writes the audio codes)", "license": "MIT (ACE-Step 1.5)", "profiles": ["music_loop", "music_track"]
+    },
+    "ace_1.5_vae.safetensors": {
+      "folder": "vae", "size_gb": 0.34, "default": true,
+      "url": "https://huggingface.co/Comfy-Org/ace_step_1.5_ComfyUI_files/resolve/main/split_files/vae/ace_1.5_vae.safetensors",
+      "role": "ACE-Step 1.5 audio decoder", "license": "MIT (ACE-Step 1.5)", "profiles": ["music_loop", "music_track"]
+    },
+    "acestep_v1.5_xl_turbo_bf16.safetensors": {
+      "folder": "diffusion_models", "size_gb": 9.97, "default": false, "min_tier": 16,
+      "url": "https://huggingface.co/Comfy-Org/ace_step_1.5_ComfyUI_files/resolve/main/split_files/diffusion_models/acestep_v1.5_xl_turbo_bf16.safetensors",
+      "role": "optional bigger music model (4B); use with --set model=acestep_v1.5_xl_turbo_bf16.safetensors", "license": "MIT (ACE-Step 1.5)",
+      "profiles": []
+    },
+    "qwen_4b_ace15.safetensors": {
+      "folder": "text_encoders", "size_gb": 8.38, "default": false, "min_tier": 16,
+      "url": "https://huggingface.co/Comfy-Org/ace_step_1.5_ComfyUI_files/resolve/main/split_files/text_encoders/qwen_4b_ace15.safetensors",
+      "role": "optional bigger music planner; use with --set lm=qwen_4b_ace15.safetensors", "license": "MIT (ACE-Step 1.5)", "profiles": []
+    }
+  },
+  "repos": {
+    "Qwen/Qwen3-TTS-Tokenizer-12Hz": {
+      "folder": "qwen-tts/Qwen3-TTS-Tokenizer-12Hz", "size_gb": 0.68, "default": true,
+      "role": "speech tokenizer shared by every Qwen3-TTS model", "license": "Apache 2.0", "profiles": ["voice"]
+    },
+    "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign": {
+      "folder": "qwen-tts/Qwen3-TTS-12Hz-1.7B-VoiceDesign", "size_gb": 4.52, "default": true,
+      "role": "creates a voice from a text description", "license": "Apache 2.0", "profiles": ["voice"]
+    },
+    "Qwen/Qwen3-TTS-12Hz-1.7B-Base": {
+      "folder": "qwen-tts/Qwen3-TTS-12Hz-1.7B-Base", "size_gb": 4.54, "default": true,
+      "role": "speaks new lines in a saved character voice (cloning)", "license": "Apache 2.0", "profiles": ["voice"]
+    },
+    "Qwen/Qwen3-TTS-12Hz-0.6B-Base": {
+      "folder": "qwen-tts/Qwen3-TTS-12Hz-0.6B-Base", "size_gb": 2.52, "default": false,
+      "role": "smaller cloning model, used by the voice `fast` preset", "license": "Apache 2.0", "profiles": ["voice:fast"]
+    },
+    "laion/larger_clap_general": {
+      "folder": "hf_cache", "size_gb": 0.78, "default": true, "local": true,
+      "role": "ranks candidate takes by how well they match the prompt (runs on the CPU)", "license": "Apache 2.0", "profiles": ["sfx", "ambience", "stinger", "music_loop", "music_track"]
+    }
+  },
+  "node_packs": [
+    {
+      "folder": "ComfyUI-Qwen-TTS", "url": "https://github.com/flybirdxx/ComfyUI-Qwen-TTS",
+      "provides": ["FB_Qwen3TTSVoiceDesign", "FB_Qwen3TTSVoiceClone"], "tested_commit": "f8f029fab458f7ef09142edd23a6c678856b4850",
+      "profiles": ["voice"]
+    }
+  ],
+  "hardware_guide": {
+    "8": {"summary": "Everything runs at the standard preset. Music makes one take at a time and the voice model unloads after each line.",
+          "skip": ["stable_audio_3_medium.safetensors (fits - Stability reports 6.5 GB peak - but leaves no headroom; unmeasured)",
+                   "acestep_v1.5_xl_turbo_bf16.safetensors", "qwen_4b_ace15.safetensors"],
+          "measured": false},
+    "12": {"summary": "Everything, including the `max` presets with Stable Audio 3 Medium.", "measured": false},
+    "16": {"summary": "Everything. Reference machine: RTX 5080 16 GB.", "measured": true},
+    "24": {"summary": "Everything, plus room for the optional ACE-Step XL music model and its 4B planner.", "measured": false}
+  }
+}

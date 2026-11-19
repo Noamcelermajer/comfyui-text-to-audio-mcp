@@ -1,0 +1,8 @@
+{
+  "id": "cartoon",
+  "title": "Cartoon",
+  "description": "Exaggerated, bouncy, comedic sounds.",
+  "prompt": "cartoon style, exaggerated, playful, bouncy, comedic",
+  "params": {},
+  "status": "experimental"
+}

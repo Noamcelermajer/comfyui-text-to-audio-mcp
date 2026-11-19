@@ -1,0 +1,8 @@
+{
+  "name": "sound-forge",
+  "version": "0.1.0",
+  "description": "Local game audio generation on your own GPU (ComfyUI): sound effects, seamless ambience loops, stingers, looping music and consistent character voice lines as game-ready .wav/.ogg, with best-of-N takes, loudness normalisation and checks.",
+  "author": {"name": "Noamcelermajer"},
+  "license": "MIT",
+  "keywords": ["mcp", "comfyui", "text-to-audio", "sound-effects", "game-audio", "music-generation", "text-to-speech", "skill"]
+}

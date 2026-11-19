@@ -1,0 +1,8 @@
+{
+  "id": "realistic",
+  "title": "Realistic",
+  "description": "Natural recorded sound, foley-like.",
+  "prompt": "realistic field recording, natural foley, high fidelity",
+  "params": {},
+  "status": "experimental"
+}

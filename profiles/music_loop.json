@@ -1,0 +1,104 @@
+{
+  "id": "music_loop",
+  "kind": "music",
+  "title": "Music loop",
+  "description": "Background music that loops: exploration, combat, town, menu. ACE-Step 1.5 (MIT; outputs usable commercially), cut to whole bars and crossfaded so it repeats seamlessly.",
+  "status": "experimental",
+  "graph": "../graphs/ace_step_15.json",
+  "vram_group": "ace_step",
+  "min_vram_gb": 8,
+  "batch": true,
+  "prompt_template": "{prompt}{style}",
+  "prompt_guide": "`prompt` is the style: genre, instruments, mood, tempo feel, era - e.g. 'Dark fantasy dungeon exploration, low strings, taiko drums, choir pads, tense and mysterious, cinematic'. Set bpm and keyscale to match. Game music is instrumental by default (lyrics '[Instrumental]'); for a song pass lyrics with [Verse] / [Chorus] tags.",
+  "params": {
+    "model": "acestep_v1.5_turbo.safetensors",
+    "lm": "qwen_1.7b_ace15.safetensors",
+    "duration": 60,
+    "bpm": 100,
+    "keyscale": "A minor",
+    "timesignature": "4",
+    "language": "en",
+    "lyrics": "[Instrumental]",
+    "audio_codes": true,
+    "steps": 8,
+    "trim": false,
+    "trim_db": -50.0,
+    "fade_in": 0.002,
+    "fade_out": 0.03,
+    "loop": true,
+    "loop_crossfade": 0.5,
+    "max_seconds": null,
+    "channels": "stereo",
+    "loudness": -18.0,
+    "peak_db": -1.0,
+    "format": "wav",
+    "sample_rate": null,
+    "candidates": 2,
+    "rank_by_clap": true,
+    "keep_candidates": true
+  },
+  "param_help": {
+    "bpm": "tempo; the loop is cut to whole bars at this tempo",
+    "keyscale": "e.g. 'A minor', 'D major'",
+    "timesignature": "beats per bar: 2, 3, 4 or 6",
+    "lyrics": "'[Instrumental]' or lyrics with [Verse]/[Chorus] tags",
+    "audio_codes": "let the planner model write the song structure first: better music, slower; false is quicker",
+    "lm": "planner model: qwen_1.7b_ace15 (default) or qwen_4b_ace15 (bigger, optional download)",
+    "model": "acestep_v1.5_turbo (2B) or acestep_v1.5_xl_turbo_bf16 (4B, optional download)",
+    "candidates": "how many takes to generate; the one that best matches the prompt (CLAP) and passes the checks is kept",
+    "trim": "cut silence at the start and end",
+    "trim_db": "what counts as silence, in dB below the clip's peak",
+    "fade_in": "seconds of fade-in",
+    "fade_out": "seconds of fade-out (ignored for loops)",
+    "loop": "make the file loop seamlessly (the end is crossfaded into the start)",
+    "loop_crossfade": "seconds of that crossfade",
+    "max_seconds": "cut the result to at most this many seconds",
+    "channels": "mono (sounds placed in the 3D world - engines pan them), stereo (UI, ambience, music) or keep",
+    "loudness": "integrated loudness target in LUFS; null leaves the level alone. Starting points: SFX -16, UI -16, voice -18, music -18, ambience -24",
+    "peak_db": "the peak never goes above this (dBFS); the gain is lowered instead of clipping",
+    "format": "wav (16-bit) or ogg (Vorbis)",
+    "sample_rate": "resample to this rate (e.g. 48000); null keeps the model's own rate",
+    "keep_candidates": "keep every take in .soundforge/<name>/ next to the result"
+  },
+  "set": {
+    "1.unet_name": "{model}",
+    "2.clip_name2": "{lm}",
+    "5.tags": "{prompt}",
+    "5.lyrics": "{lyrics}",
+    "5.seed": "{seed}",
+    "5.bpm": "{bpm}",
+    "5.duration": "{duration}",
+    "5.timesignature": "{timesignature}",
+    "5.language": "{language}",
+    "5.keyscale": "{keyscale}",
+    "5.generate_audio_codes": "{audio_codes}",
+    "7.seconds": "{duration}",
+    "7.batch_size": "{candidates}",
+    "8.seed": "{seed}",
+    "8.steps": "{steps}"
+  },
+  "output_node": "10",
+  "presets": {
+    "fast": {
+      "description": "One 30-second take without the structure planner.",
+      "params": {
+        "candidates": 1,
+        "audio_codes": false,
+        "duration": 30
+      }
+    },
+    "max": {
+      "description": "Four takes, the best kept.",
+      "params": {
+        "candidates": 4
+      }
+    }
+  },
+  "tiers": {
+    "8": {
+      "limits": {
+        "candidates": 1
+      }
+    }
+  }
+}

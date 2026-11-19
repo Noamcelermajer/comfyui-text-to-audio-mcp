@@ -1,0 +1,12 @@
+{
+  "id": "music_track",
+  "extends": "music_loop",
+  "title": "Music track",
+  "description": "A piece with a beginning and an end: title theme, boss intro, credits, cutscene cue. Not looped; fades out.",
+  "params": {
+    "duration": 120,
+    "loop": false,
+    "fade_out": 2.0,
+    "fade_in": 0.0
+  }
+}

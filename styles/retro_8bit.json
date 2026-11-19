@@ -1,0 +1,10 @@
+{
+  "id": "retro_8bit",
+  "title": "Retro 8-bit",
+  "description": "Chiptune and 8-bit game sounds: square and pulse waves, bitcrushed, lo-fi.",
+  "prompt": "8-bit chiptune style, square wave, bitcrushed retro video game sound",
+  "params": {
+    "sample_rate": 22050
+  },
+  "status": "experimental"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "sound-forge",
+  "owner": {"name": "Noamcelermajer"},
+  "plugins": [
+    {
+      "name": "sound-forge",
+      "source": "./",
+      "description": "Local game audio generation (SFX, ambience, music, voice) on ComfyUI, as an MCP server plus a skill."
+    }
+  ]
+}

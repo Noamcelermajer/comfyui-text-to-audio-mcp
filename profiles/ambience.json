@@ -1,0 +1,36 @@
+{
+  "id": "ambience",
+  "extends": "sfx",
+  "kind": "ambience",
+  "title": "Ambience loop",
+  "description": "Seamless background loops: forest, rain, cave drips, tavern murmur, engine room. Stereo, crossfaded so it repeats without a seam, quieter loudness target.",
+  "prompt_template": "{prompt}{style}, continuous steady ambience with no sudden events. Length: {length} seconds",
+  "prompt_guide": "Describe the place and its layers: the bed (wind, rain, room tone), the textures (leaves, drips, distant voices) and the space. Avoid one-off events (a single thunderclap, a door slam) - they repeat audibly in a loop; make those separate SFX. Example: 'Quiet forest at dawn with birds chirping, soft wind through leaves, distant stream flowing'.",
+  "params": {
+    "duration": 30,
+    "candidates": 3,
+    "trim": false,
+    "loop": true,
+    "loop_crossfade": 2.0,
+    "channels": "stereo",
+    "loudness": -24.0
+  },
+  "presets": {
+    "fast": {
+      "description": "One 20-second take at 4 steps.",
+      "params": {
+        "candidates": 1,
+        "steps": 4,
+        "duration": 20
+      }
+    },
+    "max": {
+      "description": "Stable Audio 3 Medium, six 60-second takes.",
+      "params": {
+        "model": "stable_audio_3_medium.safetensors",
+        "candidates": 6,
+        "duration": 60
+      }
+    }
+  }
+}

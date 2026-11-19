@@ -1,0 +1,89 @@
+{
+  "id": "sfx",
+  "kind": "sfx",
+  "title": "Sound effect",
+  "description": "One-shot effects: impacts, footsteps, weapons, spells, pickups, UI clicks. Stable Audio 3 Small-SFX; several takes, the best kept, trimmed, mono, loudness-normalised.",
+  "status": "experimental",
+  "graph": "../graphs/stable_audio_3.json",
+  "vram_group": "stable_audio_3",
+  "min_vram_gb": 4,
+  "batch": true,
+  "prompt_template": "{prompt}{style}. Length: {length} seconds",
+  "prompt_guide": "Describe the sound source, its material and texture, the space (indoor/outdoor, dry/reverberant, close/distant) and how it evolves (attack, decay, movement). One or two dense sentences, no story. Examples: 'Wooden door creaking open slowly in an old house, echoing interior' - 'Sword swing whooshing through air, fast motion, clean metallic tone' - 'Magical spell casting, shimmering particles, rising tonal energy' - 'Footsteps on gravel, steady walking pace, close perspective'. Set duration to the sound: impacts and clicks 1-2 s, actions 3-6 s. One sound per file; layer them in the engine.",
+  "params": {
+    "model": "stable_audio_3_small_sfx.safetensors",
+    "duration": 3,
+    "steps": 8,
+    "cfg": 1.0,
+    "negative": "",
+    "trim": true,
+    "trim_db": -50.0,
+    "fade_in": 0.002,
+    "fade_out": 0.03,
+    "loop": false,
+    "loop_crossfade": 1.0,
+    "max_seconds": null,
+    "channels": "mono",
+    "loudness": -16.0,
+    "peak_db": -1.0,
+    "format": "wav",
+    "sample_rate": null,
+    "candidates": 4,
+    "rank_by_clap": true,
+    "keep_candidates": true
+  },
+  "param_help": {
+    "model": "stable_audio_3_small_sfx (433M, fast) or stable_audio_3_medium (1.4B, best quality, about 6.5 GB of VRAM)",
+    "duration": "seconds to generate (1-120 with Small, up to 380 with Medium); silence after the sound is trimmed",
+    "steps": "sampling steps; the post-trained models are made for 8, more does not help",
+    "negative": "what to avoid, e.g. 'music, speech'",
+    "candidates": "how many takes to generate; the one that best matches the prompt (CLAP) and passes the checks is kept",
+    "trim": "cut silence at the start and end",
+    "trim_db": "what counts as silence, in dB below the clip's peak",
+    "fade_in": "seconds of fade-in",
+    "fade_out": "seconds of fade-out (ignored for loops)",
+    "loop": "make the file loop seamlessly (the end is crossfaded into the start)",
+    "loop_crossfade": "seconds of that crossfade",
+    "max_seconds": "cut the result to at most this many seconds",
+    "channels": "mono (sounds placed in the 3D world - engines pan them), stereo (UI, ambience, music) or keep",
+    "loudness": "integrated loudness target in LUFS; null leaves the level alone. Starting points: SFX -16, UI -16, voice -18, music -18, ambience -24",
+    "peak_db": "the peak never goes above this (dBFS); the gain is lowered instead of clipping",
+    "format": "wav (16-bit) or ogg (Vorbis)",
+    "sample_rate": "resample to this rate (e.g. 48000); null keeps the model's own rate",
+    "keep_candidates": "keep every take in .soundforge/<name>/ next to the result"
+  },
+  "set": {
+    "1.ckpt_name": "{model}",
+    "3.text": "{prompt}",
+    "4.text": "{negative}",
+    "5.seconds": "{duration}",
+    "5.batch_size": "{candidates}",
+    "6.seed": "{seed}",
+    "6.steps": "{steps}",
+    "6.cfg": "{cfg}"
+  },
+  "output_node": "8",
+  "presets": {
+    "fast": {
+      "description": "One take at 4 steps: the quickest usable result.",
+      "params": {
+        "candidates": 1,
+        "steps": 4
+      }
+    },
+    "max": {
+      "description": "Stable Audio 3 Medium, eight takes, the best kept.",
+      "params": {
+        "model": "stable_audio_3_medium.safetensors",
+        "candidates": 8
+      }
+    }
+  },
+  "tiers": {
+    "8": {
+      "limits": {
+        "candidates": 4
+      }
+    }
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "id": "voice",
+  "kind": "voice",
+  "title": "Voice line",
+  "description": "Character dialogue, barks and narration with Qwen3-TTS (Apache 2.0). Design a voice from a description, or name a saved character `voice` so every line keeps the same voice.",
+  "status": "experimental",
+  "graph": "../graphs/qwen3_tts_design.json",
+  "vram_group": "qwen3_tts",
+  "min_vram_gb": 6,
+  "batch": false,
+  "prompt_guide": "`prompt` is exactly the words to speak. `voice_description` says who speaks: age, gender, accent, timbre, pace - e.g. 'An old man with a deep gravelly voice and a slow, weary Scottish accent'. `emotion` says how this line is said: 'angry, shouting', 'whispering, afraid'. Give a `voice` id to keep a character consistent across lines: the first call creates the voice from the description, later calls reuse it.",
+  "params": {
+    "model_choice": "1.7B",
+    "language": "Auto",
+    "emotion": "",
+    "voice_description": "",
+    "temperature": 0.9,
+    "unload_after": false,
+    "trim": true,
+    "trim_db": -45.0,
+    "fade_in": 0.005,
+    "fade_out": 0.03,
+    "loop": false,
+    "loop_crossfade": 1.0,
+    "max_seconds": null,
+    "channels": "mono",
+    "loudness": -18.0,
+    "peak_db": -1.0,
+    "format": "wav",
+    "sample_rate": null,
+    "candidates": 1,
+    "rank_by_clap": false,
+    "keep_candidates": true
+  },
+  "param_help": {
+    "voice_description": "who is speaking and how they sound (used to create a voice)",
+    "emotion": "how this line is delivered",
+    "language": "Auto, English, Chinese, Japanese, Korean, French, German, Spanish, Portuguese, Russian or Italian",
+    "model_choice": "size of the cloning model for saved voices: 1.7B or 0.6B (quicker)",
+    "temperature": "variation between takes",
+    "unload_after": "free the voice model's VRAM after each line (slower, for small cards)",
+    "candidates": "how many takes to generate; the one that best matches the prompt (CLAP) and passes the checks is kept",
+    "trim": "cut silence at the start and end",
+    "trim_db": "what counts as silence, in dB below the clip's peak",
+    "fade_in": "seconds of fade-in",
+    "fade_out": "seconds of fade-out (ignored for loops)",
+    "loop": "make the file loop seamlessly (the end is crossfaded into the start)",
+    "loop_crossfade": "seconds of that crossfade",
+    "max_seconds": "cut the result to at most this many seconds",
+    "channels": "mono (sounds placed in the 3D world - engines pan them), stereo (UI, ambience, music) or keep",
+    "loudness": "integrated loudness target in LUFS; null leaves the level alone. Starting points: SFX -16, UI -16, voice -18, music -18, ambience -24",
+    "peak_db": "the peak never goes above this (dBFS); the gain is lowered instead of clipping",
+    "format": "wav (16-bit) or ogg (Vorbis)",
+    "sample_rate": "resample to this rate (e.g. 48000); null keeps the model's own rate",
+    "keep_candidates": "keep every take in .soundforge/<name>/ next to the result"
+  },
+  "set": {
+    "1.text": "{text}",
+    "1.instruct": "{instruct}",
+    "1.language": "{language}",
+    "1.seed": "{seed}",
+    "1.temperature": "{temperature}",
+    "1.unload_model_after_generate": "{unload_after}"
+  },
+  "output_node": "2",
+  "variants": {
+    "clone": {
+      "graph": "../graphs/qwen3_tts_clone.json",
+      "set": {
+        "1.audio": "{ref_file}",
+        "2.target_text": "{text}",
+        "2.ref_text": "{ref_text}",
+        "2.instruct": "{instruct}",
+        "2.model_choice": "{model_choice}",
+        "2.language": "{language}",
+        "2.seed": "{seed}",
+        "2.temperature": "{temperature}",
+        "2.unload_model_after_generate": "{unload_after}"
+      }
+    }
+  },
+  "presets": {
+    "fast": {
+      "description": "The smaller cloning model for saved voices.",
+      "params": {
+        "model_choice": "0.6B"
+      }
+    },
+    "max": {
+      "description": "Three takes with less variation; the first clean one is kept.",
+      "params": {
+        "candidates": 3,
+        "temperature": 0.75
+      }
+    }
+  },
+  "tiers": {
+    "8": {
+      "params": {
+        "unload_after": true
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "id": "stinger",
+  "extends": "sfx",
+  "kind": "sfx",
+  "title": "Music stinger / UI jingle",
+  "description": "Short musical cues: level up, quest complete, victory, game over, item found, menu jingles. Stable Audio 3 Small-Music, stereo.",
+  "prompt_guide": "Name the instrument(s), the gesture and the mood: 'Level up chime, bright ascending harp and bell arpeggio, rewarding fantasy RPG style' - 'Game over sting, slow descending brass, dark and final'. 2-6 seconds.",
+  "params": {
+    "model": "stable_audio_3_small_music.safetensors",
+    "duration": 4,
+    "channels": "stereo",
+    "fade_out": 0.3
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "1": {
+    "class_type": "LoadAudio",
+    "inputs": {
+      "audio": "soundforge_voice.wav"
+    }
+  },
+  "2": {
+    "class_type": "FB_Qwen3TTSVoiceClone",
+    "inputs": {
+      "target_text": "",
+      "ref_audio": [
+        "1",
+        0
+      ],
+      "ref_text": "",
+      "instruct": "",
+      "model_choice": "1.7B",
+      "x_vector_only": false,
+      "device": "auto",
+      "precision": "bf16",
+      "language": "Auto",
+      "seed": 0,
+      "max_new_tokens": 2048,
+      "top_p": 1.0,
+      "top_k": 50,
+      "temperature": 0.9,
+      "repetition_penalty": 1.05,
+      "attention": "auto",
+      "unload_model_after_generate": false
+    }
+  },
+  "3": {
+    "class_type": "SaveAudio",
+    "inputs": {
+      "audio": [
+        "2",
+        0
+      ],
+      "filename_prefix": "soundforge/out"
+    }
+  }
+}
